@@ -8,18 +8,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class pessoa extends Actor
 {
-    private GreenfootImage imagem1;
     /**
      * Act - do whatever the pessoa wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act()
+    /*public void act()
     {
-        // Add your action code here.
-    }
-    public pessoa(){
-        imagem1 = new GreenfootImage("inimigo.png");
-        imagem1.scale(50, 50);
-        setImage(imagem1);
+        
+    }*/
+    public void evitarSobreposicaoHorizontal(int posXPrevia)
+    {
+        Actor outroActor = getOneIntersectingObject(Actor.class);
+        if (outroActor != null) {
+            setLocation(posXPrevia, getY());
+        }
     }
 }

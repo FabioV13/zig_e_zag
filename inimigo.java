@@ -8,17 +8,42 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class inimigo extends pessoa
 {
-    private GreenfootImage imagem1;
+    private GreenfootImage policia, policia1;
+    private int distancia = 500; 
+    private int pasoActual = 0;
+    private int velocidad = 1;
     /**
      * Act - do whatever the inimigo wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        // Add your action code here.
+        alerta();
     }
-    public void inimigo(){
-        imagem1 = new GreenfootImage("inimigo.png");
-        setImage(imagem1);
+    public inimigo(){
+        policia = new GreenfootImage("inimigo.png");
+        policia1 = new GreenfootImage("inimigo1.png");
+        policia.scale(40, 40);
+        policia1.scale(40, 40);
+        setImage(policia);
+    }
+    public void alerta(){
+        int posXPrevia = getX();
+        if(pasoActual<300){
+            move(velocidad);
+            if((pasoActual/10)% 2 == 0)
+               setImage(policia);
+            else
+               setImage(policia1);
+        }else
+           setImage(policia);
+        pasoActual++;
+        if (pasoActual >= distancia) {
+            velocidad = -velocidad; 
+            pasoActual = 0;  
+            policia.mirrorHorizontally();
+            policia1.mirrorHorizontally();
+        }
+        evitarSobreposicaoHorizontal(posXPrevia);
     }
 }
