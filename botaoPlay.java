@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class botaoInicio extends Actor
+public class botaoPlay extends Actor
 {
     private GreenfootImage botao;
     /**
@@ -17,10 +17,10 @@ public class botaoInicio extends Actor
     {
         //
     }
-    public botaoInicio()
+    public botaoPlay()
     {
-        botao = new GreenfootImage("botomInicio.png");
-        botao.scale(100,100);
+        botao = new GreenfootImage("botomPlay.png");
+        botao.scale(300,200);
         setImage(botao);
     }
 }

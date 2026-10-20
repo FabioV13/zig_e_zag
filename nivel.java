@@ -36,7 +36,7 @@ public class nivel extends World
            x = getWidth()/2;
         }else{
            y = getHeight()-50;
-           x = 3*getWidth()/3;
+           x = getWidth();
         }
         addObject(actor,x,y);
     }
