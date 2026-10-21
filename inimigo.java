@@ -23,8 +23,8 @@ public class inimigo extends pessoa
     public inimigo(){
         policia = new GreenfootImage("inimigo.png");
         policia1 = new GreenfootImage("inimigo1.png");
-        policia.scale(40, 40);
-        policia1.scale(40, 40);
+        policia.scale(60, 60);
+        policia1.scale(60, 60);
         setImage(policia);
     }
     public void alerta(){

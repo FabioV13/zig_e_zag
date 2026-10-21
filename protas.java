@@ -19,7 +19,7 @@ public class protas extends pessoa
     public protas(String nomeImagem,String teclaIzquierda,String teclaDerecha,String teclaSalto)
     {
         imagem = new GreenfootImage(nomeImagem);
-        imagem.scale(40,40);
+        imagem.scale(60,60);
         setImage(imagem);
         this.teclaIzquierda = teclaIzquierda;
         this.teclaDerecha = teclaDerecha;
@@ -62,7 +62,7 @@ public class protas extends pessoa
         setLocation(getX(), getY() + velocidadeVertical);
 
         // Comprobar si al caer o subir choca verticalmente con el otro espía (subirse encima)
-        Actor outroProta = getOneIntersectingObject(pessoa.class);
+        Actor outroProta = getOneIntersectingObject(Actor.class);
         if (outroProta != null) {
             setLocation(getX(), posYPrevia);
             velocidadeVertical = 0;
@@ -81,12 +81,10 @@ public class protas extends pessoa
     }
     private boolean estaNoChao()
     {
-        int limiteSuelo = getWorld().getHeight() - (getImage().getHeight() / 2);
         
         // Está en el suelo si toca el fondo o si está justo encima del otro compañero
-        boolean enElBorde = getY() >= limiteSuelo;
         boolean sobreCompanheiro = getOneObjectAtOffset(0, getImage().getHeight() / 2 + 1, pessoa.class) != null;
-
-        return enElBorde || sobreCompanheiro;
+        boolean sobreLimites = getOneObjectAtOffset(0, getImage().getHeight() / 2 + 1, muro.class) != null;
+        return  sobreLimites || sobreCompanheiro;
     }
 }

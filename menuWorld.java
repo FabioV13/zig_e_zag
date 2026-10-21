@@ -16,7 +16,7 @@ public class menuWorld extends World
     public menuWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1000, 500, 1); 
+        super(1250, 650, 1); 
         fundo = new GreenfootImage("backgroundMenu.jpg");
         fundo.scale(getWidth(), getHeight());
         setBackground(fundo);
@@ -32,7 +32,7 @@ public class menuWorld extends World
            y = getHeight()/2+50;
            x = getWidth()/2;
         }else{
-           y = getHeight()/2+100;
+           y = 2*getHeight()/3+60;
            x = getWidth()/2;
         }
         addObject(actor,x,y);

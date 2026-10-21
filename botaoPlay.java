@@ -20,7 +20,8 @@ public class botaoPlay extends Actor
     public botaoPlay()
     {
         botao = new GreenfootImage("botomPlay.png");
-        botao.scale(300,200);
+        botao.scale(400,200);
         setImage(botao);
     }
+
 }

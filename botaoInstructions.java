@@ -21,7 +21,7 @@ public class botaoInstructions extends Actor
         public botaoInstructions()
     {
         botao = new GreenfootImage("botomIntructions.png");
-        botao.scale(300,200);
+        botao.scale(500,200);
         setImage(botao);
     }
 }
