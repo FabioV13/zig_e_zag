@@ -8,18 +8,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class protas extends pessoa
 {
-    private int velocidade = 2, velocidadeVertical = 0, gravidade = 1, forcaSalto = -14;
-    private boolean mirandoDerecha = true;
+    private int velocidad = 2, velocidadeVertical = 0, gravidade = 1, forcaSalto = -14;
+    private int  imagemAtual = 1;
     private String teclaIzquierda,teclaDerecha,teclaSalto;
-    private GreenfootImage imagem;
+    private GreenfootImage imagem, imagem1;
     /**
      * Act - do whatever the protas wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public protas(String nomeImagem,String teclaIzquierda,String teclaDerecha,String teclaSalto)
+    public protas(String nomeImagem,String nomeImagem1,String teclaIzquierda,String teclaDerecha,String teclaSalto)
     {
         imagem = new GreenfootImage(nomeImagem);
+        imagem1 = new GreenfootImage(nomeImagem1);
         imagem.scale(60,60);
+        imagem1.scale(60,60);
         setImage(imagem);
         this.teclaIzquierda = teclaIzquierda;
         this.teclaDerecha = teclaDerecha;
@@ -33,38 +35,36 @@ public class protas extends pessoa
     }
     public void caminhar(){
         int posXPrevia = getX();
-        if(Greenfoot.isKeyDown(teclaIzquierda)){
-           move(-velocidade);
-           if(mirandoDerecha){
-             imagem.mirrorHorizontally();
-             mirandoDerecha = !mirandoDerecha;
-           }
+        int posYPrevia = getY();
+        if(Greenfoot.isKeyDown(teclaIzquierda))
+        {
+           move(-velocidad);
+           animacaoCami(imagem ,imagem1, -velocidad);
         }else if(Greenfoot.isKeyDown(teclaDerecha))
         {
-           move(velocidade);
-           if(!mirandoDerecha)
-           {
-             imagem.mirrorHorizontally();
-             mirandoDerecha = !mirandoDerecha;
-           }
+           move(velocidad);
+           animacaoCami(imagem ,imagem1, velocidad);
+        }else{
+        setImage(imagem);
+        imagemAtual = 1;
         }
-        evitarSobreposicaoHorizontal(posXPrevia);
+        evitarSobreposicao(posXPrevia, posYPrevia);
     }
     private void verificaSalto()
     {
-        if (Greenfoot.isKeyDown(teclaSalto) && estaNoChao()) {
+        if (Greenfoot.isKeyDown(teclaSalto) && estaNoChao()) 
+        {
             velocidadeVertical = forcaSalto;
         }
     }
     private void aplicarGravidade()
     {
+        int posXPrevia = getX();
         int posYPrevia = getY();
         setLocation(getX(), getY() + velocidadeVertical);
 
-        // Comprobar si al caer o subir choca verticalmente con el otro espía (subirse encima)
-        Actor outroProta = getOneIntersectingObject(Actor.class);
-        if (outroProta != null) {
-            setLocation(getX(), posYPrevia);
+        if (!evitarSobreposicao(posXPrevia, posYPrevia))  
+        {
             velocidadeVertical = 0;
             return;
         }
@@ -72,10 +72,12 @@ public class protas extends pessoa
         // Límite del suelo inferior de la pantalla
         int limiteSuelo = getWorld().getHeight() - (getImage().getHeight() / 2);
 
-        if (getY() >= limiteSuelo) {
+        if (getY() >= limiteSuelo) 
+        {
             setLocation(getX(), limiteSuelo);
             velocidadeVertical = 0;
-        } else {
+        } else 
+        {
             velocidadeVertical += gravidade;
         }
     }

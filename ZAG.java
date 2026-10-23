@@ -14,6 +14,6 @@ public class ZAG extends protas
      */
 
     public ZAG(){
-        super("ZAG.png","left","right","up");
+        super("ZAG.png","ZAG1.png","left","right","up");
     }
 }

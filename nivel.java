@@ -21,20 +21,8 @@ public class nivel extends World
         super(1250, 650, 1);
         preparaNivel();
     }
-    public void colocaObjetos(Actor actor){
-        int x; 
-        int y;
-        if(actor instanceof inimigo){
-           y = getHeight()-50;
-           x = 2*getWidth()/3;
-        }else if(actor instanceof ZIG){
-           y = getHeight()-55;
-           x = 225;
-        }else{
-           y = getHeight()-55;
-           x = 150;
-        }
-        addObject(actor,x,y);
+    public void colocaObjetos()
+    {
     }
     public void preparaNivel()
     {
@@ -48,9 +36,16 @@ public class nivel extends World
     }
     public void preparaPersonagens()
     {
-        colocaObjetos(new inimigo());
-        colocaObjetos(new ZIG());
-        colocaObjetos(new ZAG());
+        //Adiciona aos inimigos
+        addObject(new inimigo("patrulha",getWidth()/2-200,getHeight()-55),getWidth()/2-200,getHeight()-55);
+        addObject(new inimigo("patrulha",getWidth()/2-200,getHeight()/2+65),getWidth()/2-200,getHeight()/2+65);
+        addObject(new inimigo("camara",150,getHeight()/2+65),150,getHeight()/2+65);
+        addObject(new inimigo("camara",250,getHeight()/2+65),250,getHeight()/2+65);
+        
+        //Adiciona aos espioes
+        addObject(new ZIG(),225,getHeight()-55);
+        addObject(new ZAG(),150,getHeight()-55);
+
     }
     public void preparaCenario(String nivelImagem)
     {
@@ -58,6 +53,7 @@ public class nivel extends World
         fundo.scale(getWidth(), getHeight());
         setBackground(fundo);
         colocaLimites();
+        colocaEcadas();
     }
     public void colocaLimites() 
     {
@@ -67,7 +63,8 @@ public class nivel extends World
         addObject(new muro(10,100),325+getWidth()/2,60);
         
         addObject(new muro(1600,10),getWidth()/2,425);
-        addObject(new muro(10,380),-300+getWidth()/2,370);
+        addObject(new muro(10,120),-300+getWidth()/2,370);
+        addObject(new muro(10,100),-300+getWidth()/2,270);
         addObject(new muro(10,100),305+getWidth()/2,270);
         
         addObject(new muro(1600,10),getWidth()/2,630);
@@ -76,5 +73,10 @@ public class nivel extends World
         addObject(new muro(10,850),getWidth()-35,getHeight()/2);
         addObject(new muro(10,850),35,getHeight()/2);
         
+    }
+    public void colocaEcadas() 
+    {
+        addObject(new escada(60,160),150+getWidth()/2,getHeight()-120);
+        addObject(new escada(60,160),250+getWidth()/2,getHeight()/2);
     }
 }
