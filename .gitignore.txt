@@ -1,0 +1,12 @@
+# Archivos compilados de Java
+*.class
+
+# Archivos de bloqueo y temporales de Greenfoot
+*.ctxt
+*~
+*.bak
+.lock
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db

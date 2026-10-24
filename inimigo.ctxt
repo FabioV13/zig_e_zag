@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=inimigo
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ inimigo\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ inimigo\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment2.params=
+comment2.target=void\ voltaParaPiso()
+comment3.params=
+comment3.target=void\ voltaParaX()
+comment4.params=
+comment4.target=void\ voltaPosInicial()
+comment5.params=modo\ x\ y
+comment5.target=inimigo(java.lang.String,\ int,\ int)
+comment6.params=
+comment6.target=void\ patrulha()
+comment7.params=voltando
+comment7.target=void\ caminhar(boolean)
+comment8.params=distanciaVision\ margenY
+comment8.target=boolean\ verificaVerProtas(int,\ int)
+numComments=9
