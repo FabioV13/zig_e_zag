@@ -11,27 +11,32 @@ public class protas extends pessoa
     private int velocidad = 2, forcaSalto = -14;
     private int  imagemAtual = 1;
     private String teclaIzquierda,teclaDerecha,teclaSalto,teclaBate;
-    private GreenfootImage imagem, imagemCami, imagemBate;
+    private GreenfootImage imagem, imagemCami, imagemBate, imagemMala, imagemCamiMala;
+    
+    private String nomeImagemMala, nomeImagemCamiMala;
     
     private boolean estaBatendo = false;
     /**
      * Act - do whatever the protas wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public protas(String nomeImagem,String nomeImagemCami,String nomeImagemBate,String teclaIzquierda,String teclaDerecha,String teclaSalto,String teclaBate)
+    public protas(String nomeImagem,String nomeImagemCami,String nomeImagemBate, String nomeImagemMala ,String nomeImagemCamiMala,String teclaIzquierda,String teclaDerecha,String teclaSalto,String teclaBate)
     {
         imagem = new GreenfootImage(nomeImagem);
         imagemCami = new GreenfootImage(nomeImagemCami);
         imagemBate = new GreenfootImage(nomeImagemBate);
+    
         imagem.scale(60,60);
         imagemCami.scale(60,60);
         imagemBate.scale(60,60);
+        
         setImage(imagem);
         this.teclaIzquierda = teclaIzquierda;
         this.teclaDerecha = teclaDerecha;
         this.teclaSalto = teclaSalto;
         this.teclaBate = teclaBate;
-        
+        this.nomeImagemMala = nomeImagemMala;
+        this.nomeImagemCamiMala = nomeImagemCamiMala;
     }
     public void act(){
         super.act();
@@ -45,7 +50,8 @@ public class protas extends pessoa
             verificaSalto();
         if(Greenfoot.isKeyDown(teclaBate))
             bater(inimigo.class, imagem, imagemBate);
-        verificaSentido(imagem ,imagemCami ,imagemBate ,velocidad);
+        verificaSentido(imagem ,imagemCami ,imagemBate,velocidad);
+        verificarBriefcase();
     }
     public void caminhar(){
         int posXPrevia = getX();
@@ -78,5 +84,24 @@ public class protas extends pessoa
         boolean sobreCompanheiro = getOneObjectAtOffset(0, getImage().getHeight() / 2 + 1, pessoa.class) != null;
         boolean sobreLimites = getOneObjectAtOffset(0, getImage().getHeight() / 2 + 1, muro.class) != null;
         return  sobreLimites || sobreCompanheiro;
+    }
+    /*public void verificarBriefcase(){
+        if (isTouching(briefcase.class)){
+            removeTouching(briefcase.class);
+            
+        }
+    }*/
+    public void verificarBriefcase()
+    {
+        if (isTouching(briefcase.class)) {
+            removeTouching(briefcase.class);
+            
+        imagem = new GreenfootImage(nomeImagemMala);
+        imagemCami = new GreenfootImage(nomeImagemCamiMala);
+        
+        imagem.scale(60,60);
+        imagemCami.scale(60,60);
+            
+        }
     }
 }

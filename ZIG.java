@@ -15,6 +15,6 @@ public class ZIG extends protas
 
     public ZIG()
     {
-        super("ZIG.png","ZIG1.png","ZIGBate.png","a","d","w","e");
+        super("ZIG.png","ZIG1.png","ZIGBate.png","ZIGM.png","ZIGM1.png","a","d","w","e");
     }
 }

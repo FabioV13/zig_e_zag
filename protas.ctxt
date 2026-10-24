@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=protas
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ protas\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=nomeImagem\ nomeImagemCami\ nomeImagemBate\ teclaIzquierda\ teclaDerecha\ teclaSalto\ teclaBate
-comment1.target=protas(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
-comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ protas\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ protas\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=nomeImagem\ nomeImagemCami\ nomeImagemBate\ nomeImagemMala\ nomeImagemCamiMala\ teclaIzquierda\ teclaDerecha\ teclaSalto\ teclaBate
+comment1.target=protas(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ protas\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
@@ -12,4 +12,7 @@ comment4.params=
 comment4.target=void\ verificaSalto()
 comment5.params=
 comment5.target=boolean\ estaNoChao()
-numComments=6
+comment6.params=
+comment6.target=void\ verificarBriefcase()
+comment6.text=public\ void\ verificarBriefcase(){\n\ \ \ \ \ \ \ \ if\ (isTouching(briefcase.class)){\n\ \ \ \ \ \ \ \ \ \ \ \ removeTouching(briefcase.class);\n\ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ }\n}
+numComments=7

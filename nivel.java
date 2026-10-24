@@ -21,8 +21,10 @@ public class nivel extends World
         super(1250, 650, 1);
         preparaNivel();
     }
-    public void colocaObjetos()
+    public void colocaObjetivo()
     {
+        addObject(new briefcase(), 1120, 150);
+        addObject(new key(), 150, 350);
     }
     public void preparaNivel()
     {
@@ -31,6 +33,7 @@ public class nivel extends World
             preparaPersonagens();
             preparaCenario(nivel1);
             colocaZonaCamara();
+            colocaObjetivo();
         } else
         {
         }

@@ -75,7 +75,7 @@ public class pessoa extends Actor
             }
         }
     }
-    public int verificaSentido(GreenfootImage imagem ,GreenfootImage imagemCami,GreenfootImage imagemBate,int velocidad)
+    public int verificaSentido(GreenfootImage imagem ,GreenfootImage imagemCami,GreenfootImage imagemBate ,int velocidad)
     {
         boolean sentidoDeseado = (direcao > 0 && velocidad > 0 || direcao < 0 && velocidad <0) ? true : false;
         if(!sentidoDeseado)
