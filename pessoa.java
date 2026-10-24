@@ -34,28 +34,57 @@ public class pessoa extends Actor
         }
         return true;
     }
-    public void animacaoCami(GreenfootImage imagem ,GreenfootImage imagem1 ,int velocidad)
+    public void animacaoCami(GreenfootImage imagem ,GreenfootImage imagemCami)
     {
         contadorFrames++;
         if(contadorFrames >= velocidadeAnimacao)
         {
-            boolean sentidoDeseado = (direcao > 0 && velocidad > 0 || direcao < 0 && velocidad <0) ? true : false;
-            if(!sentidoDeseado)
-            {
-               direcao = -direcao;
-               imagem.mirrorHorizontally();
-               imagem1.mirrorHorizontally();
-            }
             contadorFrames = 0;
             if(imagemAtual == 1)
             {
                 imagemAtual = 2;
-                setImage(imagem1);
+                setImage(imagemCami);
             }else
             {
                 imagemAtual = 1;
                 setImage(imagem);
             }
         }
+    }
+    public void bater(Class<? extends pessoa> alvoClass, GreenfootImage imgBase, GreenfootImage imgGolpe)
+    {
+        // 1. Ejecuta la animación de golpe reutilizando animacaoCami
+        animacaoCami(imgBase, imgGolpe);
+    
+        // 2. Comprueba el impacto hacia el frente según hacia dónde mira (direcao: 1 o -1)
+        int alcanceGolpe = 35;
+        int offsetX = direcao * alcanceGolpe;
+    
+        pessoa alvo = (pessoa) getOneObjectAtOffset(offsetX, 0, alvoClass);
+    
+        // 3. Diferencia entre eliminar al enemigo o reiniciar el nivel si atrapa al protagonista
+        if (alvo != null && alvo.getWorld() != null)
+        {
+            if (alvo instanceof inimigo)
+            {
+                getWorld().removeObject(alvo);
+            }
+            else if (alvo instanceof protas)
+            {
+                //reiniciaNivel();
+            }
+        }
+    }
+    public int verificaSentido(GreenfootImage imagem ,GreenfootImage imagemCami,GreenfootImage imagemBate,int velocidad)
+    {
+        boolean sentidoDeseado = (direcao > 0 && velocidad > 0 || direcao < 0 && velocidad <0) ? true : false;
+        if(!sentidoDeseado)
+        {
+            direcao = -direcao;
+            imagem.mirrorHorizontally();
+            imagemCami.mirrorHorizontally();
+            imagemBate.mirrorHorizontally();
+        }
+        return direcao;
     }
 }

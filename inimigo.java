@@ -8,11 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class inimigo extends pessoa
 {
-    private GreenfootImage policia, policia1;
+    private GreenfootImage policia, policiaCami ,policiaBate;
     private int xIni ,yIni;
     private int distancia = 500; 
     private int pasoActual = 0;
-    private int velocidad = 1 ;
+    private int velocidad = 1 ,direcao = 1;
     private boolean estaOlhando = false, voltarInicio = false;
     private String modoInimigo;
     /**
@@ -23,10 +23,23 @@ public class inimigo extends pessoa
     {
         if(modoInimigo.equals("patrulha"))
         {
-        if(voltarInicio)
+        int offsetX = direcao * 35;
+        boolean protaAlcanzable = getOneObjectAtOffset(offsetX, 0, protas.class) != null;
+    
+        if (protaAlcanzable)
+        {
+            // Comprobación específica del enemigo: ataca automáticamente a los protagonistas
+            bater(protas.class, policia, policiaBate);
+        }
+        else if (voltarInicio)
+        {
             voltaPosInicial();
+        }
         else
+        {
             patrulha();
+        }
+        direcao = verificaSentido(policia ,policiaCami ,policiaBate ,velocidad);
         }
     }
     public void voltaPosInicial()
@@ -53,9 +66,11 @@ public class inimigo extends pessoa
         xIni = x;
         yIni = y;
         policia = new GreenfootImage("inimigo.png");
-        policia1 = new GreenfootImage("inimigo1.png");
+        policiaCami = new GreenfootImage("inimigo1.png");
+        policiaBate = new GreenfootImage("inimigoBate.png");
         policia.scale(60, 60);
-        policia1.scale(60, 60);
+        policiaCami.scale(60, 60);
+        policiaBate.scale(60, 60);
         setImage(policia);
     }
     public void patrulha(){
@@ -71,7 +86,7 @@ public class inimigo extends pessoa
         int posYPrevia = getY();
         if(pasoActual<300 || verificaVerProtas(200, 40) || voltando){
             move(velocidad);
-            animacaoCami(policia ,policia1 ,velocidad);
+            animacaoCami(policia ,policiaCami );
         }else
            setImage(policia);
         if(!verificaVerProtas(200, 40) || !voltando)

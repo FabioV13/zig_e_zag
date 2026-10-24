@@ -76,7 +76,7 @@ public class nivel extends World
     }
     public void colocaEcadas() 
     {
-        addObject(new escada(60,160),150+getWidth()/2,getHeight()-120);
-        addObject(new escada(60,160),250+getWidth()/2,getHeight()/2);
+        addObject(new escada(60,250),150+getWidth()/2,getHeight()-150);
+        addObject(new escada(60,250),250+getWidth()/2,getHeight()/2-30);
     }
 }
