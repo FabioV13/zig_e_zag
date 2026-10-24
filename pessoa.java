@@ -10,15 +10,15 @@ public class pessoa extends Actor
 {
     private int velocidadeAnimacao = 10, imagemAtual = 1;
     private int contadorFrames = 0 ,direcao = 1 ;
-    
+    protected int velocidadeVertical = 0, gravidade = 1;
     /**
      * Act - do whatever the pessoa wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    /*public void act()
+    public void act()
     {
-        
-    }*/
+        aplicarGravidade();    
+    }
     public boolean evitarSobreposicao(int posXPrevia, int posYPrevia)
     {
         List<Actor> colisiones = getIntersectingObjects(Actor.class);
@@ -86,5 +86,23 @@ public class pessoa extends Actor
             imagemBate.mirrorHorizontally();
         }
         return direcao;
+    }
+    public void aplicarGravidade()
+    {
+        int posXPrevia = getX();
+        int posYPrevia = getY();
+        
+        // 1. Mover hacia abajo según la velocidad actual
+        setLocation(getX(), getY() + velocidadeVertical);
+    
+        // 2. Si colisionó con el suelo o muro invisible
+        if (!evitarSobreposicao(posXPrevia, posYPrevia))  
+        {
+            velocidadeVertical = 0; // Detiene la caída al tocar el suelo
+            return;
+        }
+    
+        // 3. Si no colisionó, significa que sigue en el aire: acelera la caída
+        velocidadeVertical += gravidade;
     }
 }

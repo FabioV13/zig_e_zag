@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class protas extends pessoa
 {
-    private int velocidad = 2, velocidadeVertical = 0, gravidade = 1, forcaSalto = -14;
+    private int velocidad = 2, forcaSalto = -14;
     private int  imagemAtual = 1;
     private String teclaIzquierda,teclaDerecha,teclaSalto,teclaBate;
     private GreenfootImage imagem, imagemCami, imagemBate;
@@ -34,7 +34,7 @@ public class protas extends pessoa
         
     }
     public void act(){
-        aplicarGravidade();
+        super.act();
         if(Greenfoot.isKeyDown(teclaIzquierda) || Greenfoot.isKeyDown(teclaDerecha))
             caminhar();
         else{
@@ -70,24 +70,7 @@ public class protas extends pessoa
             velocidadeVertical = forcaSalto;
         }
     }
-    private void aplicarGravidade()
-    {
-        int posXPrevia = getX();
-        int posYPrevia = getY();
-        
-        // 1. Mover hacia abajo según la velocidad actual
-        setLocation(getX(), getY() + velocidadeVertical);
-    
-        // 2. Si colisionó con el suelo o muro invisible
-        if (!evitarSobreposicao(posXPrevia, posYPrevia))  
-        {
-            velocidadeVertical = 0; // Detiene la caída al tocar el suelo
-            return;
-        }
-    
-        // 3. Si no colisionó, significa que sigue en el aire: acelera la caída
-        velocidadeVertical += gravidade;
-    }
+
     private boolean estaNoChao()
     {
         
