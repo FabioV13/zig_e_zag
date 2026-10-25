@@ -30,13 +30,24 @@ public class zonaCamara extends Actor
 
         setImage(img);
     }
+    private void alertarGuardias(int destinoX, int destinoY)
+    {
+        // Obtiene todos los policías del mapa
+        java.util.List<inimigo> guardias = getWorld().getObjects(inimigo.class);
+    
+        for (inimigo guardia : guardias)
+        {
+            // Les indica a dónde deben acudir
+            guardia.activarAlerta(destinoX, destinoY);
+        }
+    }
     public void verificaZona()
     {
         protas invasor = (protas) getOneIntersectingObject(protas.class);
 
         if (invasor != null)
         {
-            
+            alertarGuardias(invasor.getX(), invasor.getY());
         }
     }
 }

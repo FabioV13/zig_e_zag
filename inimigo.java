@@ -13,6 +13,7 @@ public class inimigo extends pessoa
     private int distancia = 500; 
     private int pasoActual = 0;
     private int velocidad = 1 ,direcao = 1;
+    private int alertaX , alertaY;
     private boolean estaOlhando = false, voltarInicio = false;
     private String modoInimigo;
     /**
@@ -24,24 +25,27 @@ public class inimigo extends pessoa
         super.act();
         if(modoInimigo.equals("patrulha"))
         {
-        int offsetX = direcao * 35;
-        boolean protaAlcanzable = getOneObjectAtOffset(offsetX, 0, protas.class) != null;
-    
-        if (protaAlcanzable)
+            int offsetX = direcao * 35;
+            boolean protaAlcanzable = getOneObjectAtOffset(offsetX, 0, protas.class) != null;
+        
+            if (protaAlcanzable)
+            {
+                // Comprobación específica del enemigo: ataca automáticamente a los protagonistas
+                bater(protas.class, policia, policiaBate);
+            }
+            else if (voltarInicio)
+            {
+                vaiPosicao(xIni,yIni);
+            }
+            else
+            {
+                patrulha();
+            }
+        }else if(modoInimigo.equals("alerta"))
         {
-            // Comprobación específica del enemigo: ataca automáticamente a los protagonistas
-            bater(protas.class, policia, policiaBate);
-        }
-        else if (voltarInicio)
-        {
-            voltaPosInicial();
-        }
-        else
-        {
-            patrulha();
+            vaiPosicao(alertaX,alertaY);
         }
         direcao = verificaSentido(policia ,policiaCami ,policiaBate ,velocidad);
-        }
     }
     public escada buscaEscada(boolean paraBajar)
     {
@@ -68,10 +72,10 @@ public class inimigo extends pessoa
         }
         return seleccionada;
     }
-    public void voltaParaPiso()
+    public void vaiParaPiso(int y)
     {
-        boolean necesitaBajar = (yIni - getY()) > 5;
-        boolean necesitaSubir = (getY() - yIni) > 5;
+        boolean necesitaBajar = (y - getY()) > 5;
+        boolean necesitaSubir = (getY() - y) > 5;
     
         // Solo busca escalera si no está en el piso correcto
         if (necesitaBajar || necesitaSubir)
@@ -113,12 +117,12 @@ public class inimigo extends pessoa
             }
         }
     }
-    public void voltaPosInicial()
+    public void vaiPosicao(int x,int y)
     {
-        if(yIni == getY()){
-            vaiParaX(xIni);
+        if(y == getY()){
+            vaiParaX(x);
         }else
-            voltaParaPiso();
+            vaiParaPiso(y);
     }
     public inimigo(String modo ,int x ,int y){
         modoInimigo = modo;
@@ -151,6 +155,13 @@ public class inimigo extends pessoa
         if(!verificaVerProtas(200, 40) || !voltando)
            pasoActual++;
         evitarSobreposicao(posXPrevia, posYPrevia);
+    }
+    public void activarAlerta(int x, int y)
+    {
+        ((nivel) getWorld()).abrePorta("nivel1_a.jpg" ,-300+getWorld().getWidth()/2,370);
+        modoInimigo = "alerta";
+        alertaX = x;
+        alertaY = y;
     }
     public boolean verificaVerProtas(int distanciaVision, int margenY)
     {
