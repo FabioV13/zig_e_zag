@@ -61,22 +61,23 @@ public class nivel extends World
     }
     public void colocaLimites() 
     {
-        addObject(new muro(1600,10),getWidth()/2,220);
-        addObject(new muro(1600,10),getWidth()/2,20);
-        addObject(new muro(10,100),-185+getWidth()/2,60);
-        addObject(new muro(10,100),325+getWidth()/2,60);
+        addObject(new muro(1600,10),getWidth()/2,220); //tercer piso
+        addObject(new muro(1600,10),getWidth()/2,20); // parte de arriba del mapa
+        addObject(new muro(10,100),-185+getWidth()/2,60); // sala final
+        addObject(new muro(10,100),325+getWidth()/2,60); // sala del maletin 
         
-        addObject(new muro(1600,10),getWidth()/2,425);
-        addObject(new muro(10,120),-300+getWidth()/2,370);
-        addObject(new muro(10,100),-300+getWidth()/2,270);
-        addObject(new muro(10,100),305+getWidth()/2,270);
+        addObject(new muro(1600,10),getWidth()/2,425);//segundo piso 
+        addObject(new muro(10,120),-300+getWidth()/2,370); //sala de camaras (abajo)
+        addObject(new muro(10,100),-300+getWidth()/2,270); //sala de camaras (arriba)
+        addObject(new muro(10,100),305+getWidth()/2,270);// luz
         
-        addObject(new muro(1600,10),getWidth()/2,630);
-        addObject(new muro(10,100),205+getWidth()/2,480);
+        addObject(new muro(1600,10),getWidth()/2,630); //parte de abajo del mapa
+        addObject(new muro(10,100),205+getWidth()/2,480); //sala de "biblioteca"
         
-        addObject(new muro(10,850),getWidth()-35,getHeight()/2);
-        addObject(new muro(10,850),35,getHeight()/2);
+        addObject(new muro(10,850),getWidth()-35,getHeight()/2);// lado del mapa
+        addObject(new muro(10,850),35,getHeight()/2);// lado del mapa
         
+        addObject(new muro(10,140),325+getWidth()/2,170); // sala del maletin (porta)
     }
     public void colocaEcadas() 
     {

@@ -27,8 +27,8 @@ public class objetivo extends Actor
     public void act()
     {
         flotar();
+        recolheObjetivo();
     }
-
     public void flotar()
     {
         setLocation(getX(), getY() + velocidad);
@@ -37,6 +37,28 @@ public class objetivo extends Actor
         if (contador >= 20) {
             velocidad = -velocidad;
             contador = 0;
+        }
+    }
+    /*public void recolheObjetivo(){
+        if (isTouching(protas.class)){
+            removeTouching(objetivo.class);
+            protas objeto = getOneIntersectingObject(briefcas.class);
+            if (this instanceof briefcase){
+               objeto.recolhaBriefcase();
+            }else{
+                
+            }
+        }
+    }*/
+    public void recolheObjetivo()
+    {
+        protas jugador = (protas) getOneIntersectingObject(protas.class);
+        
+        if (jugador != null) {
+            if (this instanceof briefcase) {
+                jugador.recolhaBriefcase();
+            }
+            getWorld().removeObject(this);
         }
     }
 }

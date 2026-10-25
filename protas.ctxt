@@ -13,6 +13,6 @@ comment4.target=void\ verificaSalto()
 comment5.params=
 comment5.target=boolean\ estaNoChao()
 comment6.params=
-comment6.target=void\ verificarBriefcase()
-comment6.text=public\ void\ verificarBriefcase(){\n\ \ \ \ \ \ \ \ if\ (isTouching(briefcase.class)){\n\ \ \ \ \ \ \ \ \ \ \ \ removeTouching(briefcase.class);\n\ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ }\n}
+comment6.target=void\ recolhaBriefcase()
+comment6.text=public\ void\ verificarBriefcase()\n\ \ \ \ {\n\ \ \ \ \ \ \ \ if\ (isTouching(briefcase.class))\ {\n\ \ \ \ \ \ \ \ \ \ \ \ removeTouching(briefcase.class);\n\ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ imagem\ \=\ new\ GreenfootImage(nomeImagemMala);\n\ \ \ \ \ \ \ \ imagemCami\ \=\ new\ GreenfootImage(nomeImagemCamiMala);\n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ imagem.scale(60,60);\n\ \ \ \ \ \ \ \ imagemCami.scale(60,60);\n\ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ }\n}
 numComments=7
