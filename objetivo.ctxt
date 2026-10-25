@@ -8,4 +8,7 @@ comment2.target=void\ act()
 comment2.text=\n\ Act\ -\ do\ whatever\ the\ objetivo\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment3.params=
 comment3.target=void\ flotar()
-numComments=4
+comment4.params=
+comment4.target=void\ recolheObjetivo()
+comment4.text=public\ void\ recolheObjetivo(){\n\ \ \ \ \ \ \ \ if\ (isTouching(protas.class)){\n\ \ \ \ \ \ \ \ \ \ \ \ removeTouching(objetivo.class);\n\ \ \ \ \ \ \ \ \ \ \ \ protas\ objeto\ \=\ getOneIntersectingObject(briefcas.class);\n\ \ \ \ \ \ \ \ \ \ \ \ if\ (this\ instanceof\ briefcase){\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ objeto.recolhaBriefcase();\n\ \ \ \ \ \ \ \ \ \ \ \ }else{\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ \ \ \ \ }\n\ \ \ \ \ \ \ \ }\n}
+numComments=5

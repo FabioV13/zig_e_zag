@@ -13,6 +13,8 @@ public class protas extends pessoa
     private String teclaIzquierda,teclaDerecha,teclaSalto,teclaBate;
     private GreenfootImage imagem, imagemCami, imagemBate, imagemMala, imagemCamiMala;
     
+    
+    
     private String nomeImagemMala, nomeImagemCamiMala;
     
     private boolean estaBatendo = false;
@@ -51,7 +53,6 @@ public class protas extends pessoa
         if(Greenfoot.isKeyDown(teclaBate))
             bater(inimigo.class, imagem, imagemBate);
         verificaSentido(imagem ,imagemCami ,imagemBate,velocidad);
-        verificarBriefcase();
     }
     public void caminhar(){
         int posXPrevia = getX();
@@ -85,13 +86,7 @@ public class protas extends pessoa
         boolean sobreLimites = getOneObjectAtOffset(0, getImage().getHeight() / 2 + 1, muro.class) != null;
         return  sobreLimites || sobreCompanheiro;
     }
-    /*public void verificarBriefcase(){
-        if (isTouching(briefcase.class)){
-            removeTouching(briefcase.class);
-            
-        }
-    }*/
-    public void verificarBriefcase()
+    /*public void verificarBriefcase()
     {
         if (isTouching(briefcase.class)) {
             removeTouching(briefcase.class);
@@ -103,5 +98,12 @@ public class protas extends pessoa
         imagemCami.scale(60,60);
             
         }
+    }*/
+    public void recolhaBriefcase(){
+        imagem = new GreenfootImage(nomeImagemMala);
+        imagemCami = new GreenfootImage(nomeImagemCamiMala);
+        
+        imagem.scale(60,60);
+        imagemCami.scale(60,60);       
     }
 }
