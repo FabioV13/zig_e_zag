@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class nivel here.
@@ -67,7 +68,7 @@ public class nivel extends World
         addObject(new muro(10,100),325+getWidth()/2,60);
         
         addObject(new muro(1600,10),getWidth()/2,425);
-        addObject(new muro(10,120),-300+getWidth()/2,370);
+        addObject(new muro(10,120),-300+getWidth()/2,370);//hee
         addObject(new muro(10,100),-300+getWidth()/2,270);
         addObject(new muro(10,100),305+getWidth()/2,270);
         
@@ -80,8 +81,8 @@ public class nivel extends World
     }
     public void colocaEcadas() 
     {
-        addObject(new escada(60,250),150+getWidth()/2,getHeight()-150);
-        addObject(new escada(60,250),250+getWidth()/2,getHeight()/2-30);
+        addObject(new escada(60,250),140+getWidth()/2,getHeight()-150);
+        addObject(new escada(60,250),260+getWidth()/2,getHeight()/2-30);
     }
     public void colocaZonaCamara()
     {
@@ -89,5 +90,17 @@ public class nivel extends World
         
         addObject(new zonaCamara(250, 200) , getWidth()-170, 120);
         addObject(new zonaCamara(500, 200) , getWidth()/2+70, 120);
+    }
+    public void abrePorta(String nomeImagem ,int removeX ,int removeY)
+    {
+        fundo = new GreenfootImage(nomeImagem);
+        fundo.scale(getWidth(), getHeight());
+        setBackground(fundo);
+        
+        List<muro> muros = getObjectsAt(removeX, removeY, muro.class);
+        if (!muros.isEmpty())
+        {
+            removeObject(muros.get(0));
+        }
     }
 }
