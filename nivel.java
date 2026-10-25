@@ -12,6 +12,8 @@ public class nivel extends World
     private int nivel = 1;
     private String nivel1 = "nivel1.jpg";
     private GreenfootImage fundo;
+    
+    private Cronometro cronometro;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -35,6 +37,7 @@ public class nivel extends World
             preparaCenario(nivel1);
             colocaZonaCamara();
             colocaObjetivo();
+            colocaCronometro();
         } else
         {
         }
@@ -67,10 +70,10 @@ public class nivel extends World
         addObject(new muro(10,100),-185+getWidth()/2,60); // sala final
         addObject(new muro(10,100),325+getWidth()/2,60); // sala del maletin 
         
-        addObject(new muro(1600,10),getWidth()/2,425);
-        addObject(new muro(10,120),-300+getWidth()/2,370);//hee
-        addObject(new muro(10,100),-300+getWidth()/2,270);
-        addObject(new muro(10,100),305+getWidth()/2,270);
+        addObject(new muro(1600,10),getWidth()/2,425);// segundo piso
+        addObject(new muro(10,120),-300+getWidth()/2,370);// sala de la llave (puerta)
+        addObject(new muro(10,100),-300+getWidth()/2,270);// sala de la llave (arriba)
+        addObject(new muro(10,100),305+getWidth()/2,270);// sala de la electricidad
         
         addObject(new muro(1600,10),getWidth()/2,630); //parte de abajo del mapa
         addObject(new muro(10,100),205+getWidth()/2,480); //sala de "biblioteca"
@@ -103,5 +106,11 @@ public class nivel extends World
         {
             removeObject(muros.get(0));
         }
+    }
+    public void colocaCronometro()
+    {
+        cronometro = new Cronometro();
+        // Colocado en la parte superior central (X: centro, Y: 40)
+        addObject(cronometro, getWidth() / 2, 40);
     }
 }
