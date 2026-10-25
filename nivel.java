@@ -58,7 +58,7 @@ public class nivel extends World
         fundo.scale(getWidth(), getHeight());
         setBackground(fundo);
         colocaLimites();
-        colocaEcadas();
+        colocaEscadas();
     }
     public void colocaLimites() 
     {
@@ -80,7 +80,7 @@ public class nivel extends World
         
         addObject(new muro(10,140),325+getWidth()/2,170); // sala del maletin (porta)
     }
-    public void colocaEcadas() 
+    public void colocaEscadas() 
     {
         addObject(new escada(60,250),140+getWidth()/2,getHeight()-150);
         addObject(new escada(60,250),260+getWidth()/2,getHeight()/2-30);

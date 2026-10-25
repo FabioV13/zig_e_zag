@@ -15,7 +15,9 @@ public class botaoPlay extends Actor
      */
     public void act()
     {
-        //
+        if (Greenfoot.mouseClicked(this)){
+            Greenfoot.setWorld(new nivel());
+        }
     }
     public botaoPlay()
     {

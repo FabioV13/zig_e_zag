@@ -52,11 +52,11 @@ public class objetivo extends Actor
     }*/
     public void recolheObjetivo()
     {
-        protas jugador = (protas) getOneIntersectingObject(protas.class);
+        protas jogador = (protas) getOneIntersectingObject(protas.class);
         
-        if (jugador != null) {
+        if (jogador != null) {
             if (this instanceof briefcase) {
-                jugador.recolhaBriefcase();
+                jogador.recolhaBriefcase();
             }
             getWorld().removeObject(this);
         }

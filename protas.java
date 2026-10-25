@@ -104,6 +104,7 @@ public class protas extends pessoa
         imagemCami = new GreenfootImage(nomeImagemCamiMala);
         
         imagem.scale(60,60);
-        imagemCami.scale(60,60);       
+        imagemCami.scale(60,60); 
+    
     }
 }
