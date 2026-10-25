@@ -16,9 +16,15 @@ public class botaoInstructions extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        if (Greenfoot.mouseClicked(this)){
+            World mundo = getWorld();
+            // Comprueba si ya existe un panel abierto antes de crear uno nuevo
+            if (mundo.getObjects(instructions.class).isEmpty()) {
+                mundo.addObject(new instructions(), mundo.getWidth() / 2, mundo.getHeight() / 2);
+            }
+        }
     }
-        public botaoInstructions()
+    public botaoInstructions()
     {
         botao = new GreenfootImage("botomIntructions.png");
         botao.scale(500,200);

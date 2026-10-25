@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=instructions
+comment0.text=\n\u00A0*\ Write\ a\ description\ of\ class\ instructions\ here.\n\u00A0*\u00A0\n\u00A0*\ @author\ (your\ name)\u00A0\n\u00A0*\ @version\ (a\ version\ number\ or\ a\ date)\n\u00A0
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ instructions\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.params=world
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=
+comment3.target=instructions()
+numComments=4
