@@ -13,7 +13,9 @@ public class nivel extends World
     private String nivel1 = "nivel1.jpg";
     private GreenfootImage fundo;
     
-    private Cronometro cronometro;
+    private cronometro cronometro;
+    private int puntosAcumulados = 0; // Guarda los puntos en silencio durante la partida
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -35,7 +37,7 @@ public class nivel extends World
         {
             preparaPersonagens();
             preparaCenario(nivel1);
-            colocaZonaCamara();
+            colocaZonas();
             colocaObjetivo();
             colocaCronometro();
         } else
@@ -88,12 +90,22 @@ public class nivel extends World
         addObject(new escada(60,250),140+getWidth()/2,getHeight()-150);
         addObject(new escada(60,250),260+getWidth()/2,getHeight()/2-30);
     }
-    public void colocaZonaCamara()
+    /*public void colocaZonaCamara()
     {
         addObject(new zonaCamara(370, 200) , getWidth()-230, getHeight()-120);
         
         addObject(new zonaCamara(250, 200) , getWidth()-170, 120);
         addObject(new zonaCamara(500, 200) , getWidth()/2+70, 120);
+    }*/
+    public void colocaZonas()
+    {
+        // Zonas de camaras (rojas)
+        addObject(new zona("camara", 370, 200), getWidth() - 230, getHeight() - 120); //biblioteca
+        addObject(new zona("camara", 250, 200), getWidth() - 170, 120); //sala da mala
+        addObject(new zona("camara", 500, 200), getWidth() / 2 + 70, 120); //sala do meio do terceiro andar
+    
+        // Zona de salida (verde) en la sala superior izquierda
+        addObject(new zona("salida", 75, 150), 80, 140); //porta de saida
     }
     public void abrePorta(String nomeImagem ,int removeX ,int removeY)
     {
@@ -109,8 +121,32 @@ public class nivel extends World
     }
     public void colocaCronometro()
     {
-        cronometro = new Cronometro();
+        cronometro = new cronometro();
         // Colocado en la parte superior central (X: centro, Y: 40)
         addObject(cronometro, getWidth() / 2, 40);
+        
+    }
+    public void somarPontos(int pontos)
+    {
+        puntosAcumulados += pontos;
+        if (puntosAcumulados < 0) {
+            puntosAcumulados = 0;
+        }
+    }
+    public void finalizarNivelConExito()
+    {
+        int bonusTiempo = 0;
+        if (cronometro != null) {
+            cronometro.detener();
+            bonusTiempo = cronometro.calcularBonusTiempo();
+            somarPontos(bonusTiempo);
+        }
+
+        // Crea el cartel final mostrando el total (llave + maletin + bonus de tiempo)
+        pontuacao cartel = new pontuacao(puntosAcumulados);
+        addObject(cartel, getWidth() / 2, getHeight() / 2);
+
+        // Opcional: pausar el bucle de Greenfoot al ganar
+        Greenfoot.stop();
     }
 }

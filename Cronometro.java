@@ -1,12 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class Cronometro extends Actor
+public class cronometro extends Actor
 {
     private int tiempoSegundos = 0;
     private int contadorCiclos = 0;
     private boolean activo = true;
 
-    public Cronometro()
+    public cronometro()
     {
         actualizarImagen();
     }
@@ -55,7 +55,22 @@ public class Cronometro extends Actor
 
         setImage(img);
     }
+    // Calcula bonus por terminar antes de 1:30 (90 segundos)
+    public int calcularBonusTiempo()
+    {
+        int tiempoLimite = 60;       // 1 minuto
+        int puntosPorSegundo = 10;  // 100 puntos por cada segundo sobrante
 
+        int segundosRestantes = tiempoLimite - tiempoSegundos;
+
+        if (segundosRestantes > 0) {
+            int puntos = segundosRestantes * puntosPorSegundo;
+            
+            // Asegura que el resultado quede redondeado a la decena
+            return (puntos / 10) * 10;
+        }
+        return 0; // Si tardo 90s o mas, no hay bonus ni penalizacion negativa
+    }
     // Métodos útiles para controlar el cronómetro desde el nivel o juego
     public void detener()
     {
