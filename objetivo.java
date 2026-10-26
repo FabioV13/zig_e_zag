@@ -11,12 +11,17 @@ public class objetivo extends Actor
     private GreenfootImage imagem;
     private int contador = 0;
     private int velocidad = 1;
+    private String nomePorta;
+    private int xPorta ,yPorta;
 
-    public objetivo(String nomeImagem, int largura, int altura)
+    public objetivo(String nomeImagem, int largura, int altura,String nomePorta,int xPorta,int yPorta)
     {
         imagem = new GreenfootImage(nomeImagem);
         imagem.scale(largura, altura);
         setImage(imagem);
+        this.nomePorta = nomePorta;
+        this.xPorta = xPorta;
+        this.yPorta = yPorta;
     }
 
     /**
@@ -39,17 +44,6 @@ public class objetivo extends Actor
             contador = 0;
         }
     }
-    /*public void recolheObjetivo(){
-        if (isTouching(protas.class)){
-            removeTouching(objetivo.class);
-            protas objeto = getOneIntersectingObject(briefcas.class);
-            if (this instanceof briefcase){
-               objeto.recolhaBriefcase();
-            }else{
-                
-            }
-        }
-    }*/
     public void recolheObjetivo()
     {
         protas jogador = (protas) getOneIntersectingObject(protas.class);
@@ -58,6 +52,7 @@ public class objetivo extends Actor
             if (this instanceof briefcase) {
                 jogador.recolhaBriefcase();
             }
+            ((nivel) getWorld()).abrePorta(nomePorta, xPorta, yPorta);
             getWorld().removeObject(this);
         }
     }

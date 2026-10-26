@@ -1,130 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
-/**
- * Write a description of class inimigo here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
 public class inimigo extends pessoa
 {
-    private GreenfootImage policia, policiaCami ,policiaBate;
-    private int xIni ,yIni;
+    private GreenfootImage policia, policiaCami, policiaBate;
+    private int xIni, yIni;
     private int distancia = 500; 
     private int pasoActual = 0;
-    private int velocidad = 1 ,direcao = 1;
-    private int alertaX , alertaY;
+    private int velocidad = 1, direcao = 1;
+    private int alertaX, alertaY;
+
     private boolean estaOlhando = false, voltarInicio = false;
-    private String modoInimigo;
-    /**
-     * Act - do whatever the inimigo wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
+    private String modoInimigo, modoInimigoIni;
+
+    public inimigo(String modo, int x, int y)
     {
-        super.act();
-        if(modoInimigo.equals("patrulha"))
-        {
-            int offsetX = direcao * 35;
-            boolean protaAlcanzable = getOneObjectAtOffset(offsetX, 0, protas.class) != null;
-        
-            if (protaAlcanzable)
-            {
-                // Comprobación específica del enemigo: ataca automáticamente a los protagonistas
-                bater(protas.class, policia, policiaBate);
-            }
-            else if (voltarInicio)
-            {
-                vaiPosicao(xIni,yIni);
-            }
-            else
-            {
-                patrulha();
-            }
-        }else if(modoInimigo.equals("alerta"))
-        {
-            vaiPosicao(alertaX,alertaY);
-        }
-        direcao = verificaSentido(policia ,policiaCami ,policiaBate ,velocidad);
-    }
-    public escada buscaEscada(boolean paraBajar)
-    {
-        List<escada> todas = getWorld().getObjects(escada.class);
-        escada seleccionada = null;
-        int menorDistanciaX = 0;
-    
-        for (escada esc : todas)
-        {
-            // Si va a bajar, busca la escalera por debajo; si va a subir, por encima
-            boolean direccionValida = paraBajar ? (esc.getY() > getY()) : (esc.getY() < getY());
-    
-            if (direccionValida)
-            {
-                int distX = Math.abs(esc.getX() - getX());
-    
-                // Si es la primera que encuentra, o si está más cerca que la anterior guardada
-                if (seleccionada == null || distX < menorDistanciaX)
-                {
-                    menorDistanciaX = distX;
-                    seleccionada = esc;
-                }
-            }
-        }
-        return seleccionada;
-    }
-    public void vaiParaPiso(int y)
-    {
-        boolean necesitaBajar = (y - getY()) > 5;
-        boolean necesitaSubir = (getY() - y) > 5;
-    
-        // Solo busca escalera si no está en el piso correcto
-        if (necesitaBajar || necesitaSubir)
-        {
-            escada objetivo = buscaEscada(necesitaBajar);
-    
-            if (objetivo != null)
-            {
-                // 1. Si no ha llegado a la escalera en X, se desplaza hacia ella
-                if (Math.abs(getX() - objetivo.getX()) > 2)
-                {
-                    vaiParaX(objetivo.getX());
-                }
-                // 2. Cuando ya está en la escalera, sube o baja verticalmente
-                else
-                {
-                    int velVertical = necesitaBajar ? getWorld().getHeight()/3-20 : -getWorld().getHeight()/3;
-                    setLocation(objetivo.getX(), getY() + velVertical);
-                }
-            }
-        }
-    }
-    public void vaiParaX(int x)
-    {
-        if(x == getX()){
-           estaOlhando = false;
-           voltarInicio = false;
-           pasoActual = 300;
-           }
-        else
-        {
-            if(x - getX() > 0){
-                velocidad = 1;
-                caminhar(true);
-            } else
-            {
-                velocidad = -1;
-                caminhar(true);
-            }
-        }
-    }
-    public void vaiPosicao(int x,int y)
-    {
-        if(y == getY()){
-            vaiParaX(x);
-        }else
-            vaiParaPiso(y);
-    }
-    public inimigo(String modo ,int x ,int y){
+        modoInimigoIni = modo;
         modoInimigo = modo;
         xIni = x;
         yIni = y;
@@ -136,73 +27,233 @@ public class inimigo extends pessoa
         policiaBate.scale(60, 60);
         setImage(policia);
     }
-    public void patrulha(){
-        caminhar(false);
-        if (pasoActual >= distancia) {
-           velocidad = -velocidad; 
-           pasoActual = 0;
-        }
-    }
-    public void caminhar(boolean voltando)
+
+    public void act()
     {
         int posXPrevia = getX();
         int posYPrevia = getY();
-        if(pasoActual<300 || verificaVerProtas(200, 40) || voltando){
-            move(velocidad);
-            animacaoCami(policia ,policiaCami );
-        }else
-           setImage(policia);
-        if(!verificaVerProtas(200, 40) || !voltando)
-           pasoActual++;
+        super.act();
+        
+        int offsetX = direcao * 35;
+        boolean protaAlcanzable = getOneObjectAtOffset(offsetX, 0, protas.class) != null;
+
+        // 1. Prioridad: Golpear
+        if (protaAlcanzable)
+        {
+            bater(protas.class, policia, policiaBate);
+        }
+        // 2. Volver a casa (ya sea tras perder de vista o por alarma resuelta)
+        else if (voltarInicio)
+        {
+            if (vaiPosicao(xIni, yIni))
+            {
+                voltarInicio = false;
+                modoInimigo = modoInimigoIni;
+                pasoActual = 0;
+                velocidad = 1;
+            }
+        }
+        // 3. Atender alerta
+        else if ("alerta".equals(modoInimigo))
+        {
+            if (vaiPosicao(alertaX, alertaY))
+            {
+                notificarLlegadaAlerta();
+            }
+        }
+        // 4. Patrulla normal
+        else if ("patrulha".equals(modoInimigo))
+        {
+            patrulha();
+        } 
+
         evitarSobreposicao(posXPrevia, posYPrevia);
+        direcao = verificaSentido(policia, policiaCami, policiaBate, velocidad);
     }
+
+    public escada buscaEscada(boolean paraBajar)
+    {
+        List<escada> todas = getWorld().getObjects(escada.class);
+        escada seleccionada = null;
+        int menorDistanciaX = 0;
+        int menorDistanciaY = 0;
+
+        for (escada esc : todas)
+        {
+            boolean direccionValida = paraBajar ? (esc.getY() > getY()) : (esc.getY() < getY());
+
+            if (direccionValida)
+            {
+                int distX = Math.abs(esc.getX() - getX());
+                int distY = Math.abs(esc.getY() - getY());
+
+                if (seleccionada == null || distY < menorDistanciaY - 10)
+                {
+                    menorDistanciaY = distY;
+                    menorDistanciaX = distX;
+                    seleccionada = esc;
+                }
+                else if (Math.abs(distY - menorDistanciaY) <= 10 && distX < menorDistanciaX)
+                {
+                    menorDistanciaY = distY;
+                    menorDistanciaX = distX;
+                    seleccionada = esc;
+                }
+            }
+        }
+        return seleccionada;
+    }
+
+    public void notificarLlegadaAlerta()
+    {
+        if (getWorld() == null) return;
+        List<inimigo> companheiros = getWorld().getObjects(inimigo.class);
+
+        for (inimigo policiaActivo : companheiros)
+        {
+            if ("alerta".equals(policiaActivo.modoInimigo))
+            {
+                policiaActivo.voltarInicio = true;
+                policiaActivo.modoInimigo = "retorno";
+            }
+        }
+    }
+
+    public void vaiParaPiso(int y)
+    {
+        boolean necesitaBajar = (y - getY()) > 5;
+        boolean necesitaSubir = (getY() - y) > 5;
+
+        if (necesitaBajar || necesitaSubir)
+        {
+            escada objetivo = buscaEscada(necesitaBajar);
+
+            if (objetivo != null)
+            {
+                // Si aún no está centrado en la escalera, camina hacia ella
+                if (Math.abs(getX() - objetivo.getX()) > 4)
+                {
+                    vaiParaX(objetivo.getX());
+                }
+                // Si ya está alineado en la escalera, sube o baja
+                else
+                {
+                    int velVertical = necesitaBajar ? (getWorld().getHeight() / 3 - 20) : (-getWorld().getHeight() / 3);
+                    setLocation(objetivo.getX(), getY() + velVertical);
+
+                    // Pequeño desplazamiento lateral para despejar la escalera al cambiar de piso
+                    int pasoSalida = (xIni >= getX()) ? 6 : -6;
+                    setLocation(getX() + pasoSalida, getY());
+                }
+            }
+        }
+    }
+
+    public void vaiParaX(int x)
+    {
+        if (Math.abs(x - getX()) > 2)
+        {
+            velocidad = (x > getX()) ? 1 : -1;
+            caminhar(true);
+        }
+        else
+        {
+            estaOlhando = false;
+        }
+    }
+
+    public boolean vaiPosicao(int x, int y)
+    {
+        // 1. Si no está en el piso adecuado, busca y usa la escalera
+        if (Math.abs(y - getY()) > 5)
+        {
+            vaiParaPiso(y);
+            return false;
+        }
+        // 2. Si ya está en el piso, ajusta la posición horizontal
+        else if (Math.abs(x - getX()) > 4)
+        {
+            vaiParaX(x);
+            return false;
+        }
+        
+        // Ha llegado dentro del margen de tolerancia
+        return true;
+    }
+
+    public void patrulha()
+    {
+        caminhar(false);
+        if (pasoActual >= distancia)
+        {
+            velocidad = -velocidad; 
+            pasoActual = 0;
+        }
+    }
+
+    public void caminhar(boolean voltando)
+    {
+        boolean viendoProta = verificaVerProtas(200, 40);
+
+        if (pasoActual < 300 || viendoProta || voltando)
+        {
+            move(velocidad);
+            animacaoCami(policia, policiaCami);
+        }
+        else
+        {
+            setImage(policia);
+        }
+
+        if (!viendoProta && !voltando)
+        {
+            pasoActual++;
+        }
+    }
+
     public void activarAlerta(int x, int y)
     {
-        ((nivel) getWorld()).abrePorta("nivel1_a.jpg" ,-300+getWorld().getWidth()/2,370);
         modoInimigo = "alerta";
+        voltarInicio = false;
         alertaX = x;
         alertaY = y;
     }
+
     public boolean verificaVerProtas(int distanciaVision, int margenY)
     {
-        var enRango = getObjectsInRange(distanciaVision, protas.class);
+        List<protas> enRango = getObjectsInRange(distanciaVision, protas.class);
 
         for (protas j : enRango)
         {
             int dx = j.getX() - getX();
             int dy = Math.abs(j.getY() - getY());
 
-            // Comprueba altura vertical
             if (dy <= margenY)
             {
-                // Mirando a la derecha y protagonista delante
-                if (velocidad > 0 && dx > 0 )
+                if (velocidad > 0 && dx > 0)
                 { 
                     velocidad = 2;
                     estaOlhando = true;
-                    return estaOlhando;
-                }else if (velocidad < 0 && dx < 0)
+                    return true;
+                }
+                else if (velocidad < 0 && dx < 0)
                 { 
                     velocidad = -2;
                     estaOlhando = true;
-                    return estaOlhando;
+                    return true;
                 }
             }
         }
         
-        if(velocidad > 0)
-            velocidad = 1;
-        else
-            velocidad = -1;
-            
-        if(estaOlhando)
+        // Si perseguía al jugador y acaba de salir del rango de visión:
+        if (estaOlhando)
         {
-            voltarInicio = true;
-            return estaOlhando;
-        }else
-        {
-            voltarInicio = false;
-            return estaOlhando;
+            estaOlhando = false;
+            voltarInicio = true; // Comienza a volver al punto inicial
         }
+
+        // Restablece velocidad normal
+        velocidad = (velocidad > 0) ? 1 : -1;
+        return false;
     }
 }

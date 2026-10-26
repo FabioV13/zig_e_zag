@@ -13,7 +13,7 @@ public class briefcase extends objetivo
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    public briefcase(){
-        super("mala.png", 40, 40);
+    public briefcase(String nomePorta){
+        super("mala.png", 40, 40,nomePorta,0,0);
     }
 }

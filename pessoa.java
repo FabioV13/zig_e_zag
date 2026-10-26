@@ -17,7 +17,7 @@ public class pessoa extends Actor
      */
     public void act()
     {
-        aplicarGravidade();    
+        aplicarGravidade(); 
     }
     public boolean evitarSobreposicao(int posXPrevia, int posYPrevia)
     {

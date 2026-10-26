@@ -26,8 +26,8 @@ public class nivel extends World
     }
     public void colocaObjetivo()
     {
-        addObject(new briefcase(), 1120, 150);
-        addObject(new key(), 150, 350);
+        addObject(new briefcase("nivel1_salida_a.jpeg"), 1120, 150);
+        addObject(new key("nivel1_luz_a.jpg",325+getWidth()/2,170), 150, 350);
     }
     public void preparaNivel()
     {
@@ -70,10 +70,12 @@ public class nivel extends World
         addObject(new muro(10,100),-185+getWidth()/2,60); // sala final
         addObject(new muro(10,100),325+getWidth()/2,60); // sala del maletin 
         
+
         addObject(new muro(1600,10),getWidth()/2,425);// segundo piso
         addObject(new muro(10,120),-300+getWidth()/2,370);// sala de la llave (puerta)
         addObject(new muro(10,100),-300+getWidth()/2,270);// sala de la llave (arriba)
         addObject(new muro(10,100),305+getWidth()/2,270);// sala de la electricidad
+
         
         addObject(new muro(1600,10),getWidth()/2,630); //parte de abajo del mapa
         addObject(new muro(10,100),205+getWidth()/2,480); //sala de "biblioteca"
@@ -90,10 +92,10 @@ public class nivel extends World
     }
     public void colocaZonaCamara()
     {
-        addObject(new zonaCamara(370, 200) , getWidth()-230, getHeight()-120);
+        addObject(new zonaCamara(370, 200,"nivel1_a.jpg",-300+getWidth()/2,370) , getWidth()-230, getHeight()-120);
         
-        addObject(new zonaCamara(250, 200) , getWidth()-170, 120);
-        addObject(new zonaCamara(500, 200) , getWidth()/2+70, 120);
+        addObject(new zonaCamara(250, 200,"nivel1_a.jpg",-300+getWidth()/2,370) , getWidth()-170, 120);
+        addObject(new zonaCamara(500, 200,"nivel1_a.jpg",-300+getWidth()/2,370) , getWidth()/2+70, 120);
     }
     public void abrePorta(String nomeImagem ,int removeX ,int removeY)
     {
@@ -106,6 +108,7 @@ public class nivel extends World
         {
             removeObject(muros.get(0));
         }
+    
     }
     public void colocaCronometro()
     {

@@ -10,9 +10,9 @@ public class protas extends pessoa
 {
     private int velocidad = 2, forcaSalto = -14;
     private int  imagemAtual = 1;
-    private String teclaIzquierda,teclaDerecha,teclaSalto,teclaBate;
+    private String teclaIzquierda,teclaDerecha,teclaSalto,teclaBate ,teclaEscada;
     private GreenfootImage imagem, imagemCami, imagemBate, imagemMala, imagemCamiMala;
-    
+    private int cooldown;
     
     
     private String nomeImagemMala, nomeImagemCamiMala;
@@ -22,7 +22,7 @@ public class protas extends pessoa
      * Act - do whatever the protas wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public protas(String nomeImagem,String nomeImagemCami,String nomeImagemBate, String nomeImagemMala ,String nomeImagemCamiMala,String teclaIzquierda,String teclaDerecha,String teclaSalto,String teclaBate)
+    public protas(String nomeImagem,String nomeImagemCami,String nomeImagemBate, String nomeImagemMala ,String nomeImagemCamiMala,String teclaIzquierda,String teclaDerecha,String teclaSalto,String teclaBate, String teclaEscada)
     {
         imagem = new GreenfootImage(nomeImagem);
         imagemCami = new GreenfootImage(nomeImagemCami);
@@ -37,10 +37,13 @@ public class protas extends pessoa
         this.teclaDerecha = teclaDerecha;
         this.teclaSalto = teclaSalto;
         this.teclaBate = teclaBate;
+        this.teclaEscada = teclaEscada;
         this.nomeImagemMala = nomeImagemMala;
         this.nomeImagemCamiMala = nomeImagemCamiMala;
     }
     public void act(){
+        int posXPrevia = getX();
+        int posYPrevia = getY();
         super.act();
         if(Greenfoot.isKeyDown(teclaIzquierda) || Greenfoot.isKeyDown(teclaDerecha))
             caminhar();
@@ -52,11 +55,12 @@ public class protas extends pessoa
             verificaSalto();
         if(Greenfoot.isKeyDown(teclaBate))
             bater(inimigo.class, imagem, imagemBate);
+        if(Greenfoot.isKeyDown(teclaEscada))
+            sobeEscada();
+        evitarSobreposicao(posXPrevia, posYPrevia);
         verificaSentido(imagem ,imagemCami ,imagemBate,velocidad);
     }
     public void caminhar(){
-        int posXPrevia = getX();
-        int posYPrevia = getY();
         if(Greenfoot.isKeyDown(teclaIzquierda))
         {
            velocidad = -2;
@@ -68,7 +72,6 @@ public class protas extends pessoa
            move(velocidad);
            animacaoCami(imagem ,imagemCami);
         }
-        evitarSobreposicao(posXPrevia, posYPrevia);
     }
     private void verificaSalto()
     {
@@ -77,7 +80,6 @@ public class protas extends pessoa
             velocidadeVertical = forcaSalto;
         }
     }
-
     private boolean estaNoChao()
     {
         
@@ -86,25 +88,43 @@ public class protas extends pessoa
         boolean sobreLimites = getOneObjectAtOffset(0, getImage().getHeight() / 2 + 1, muro.class) != null;
         return  sobreLimites || sobreCompanheiro;
     }
-    /*public void verificarBriefcase()
+    public void sobeEscada()
     {
-        if (isTouching(briefcase.class)) {
-            removeTouching(briefcase.class);
-            
-        imagem = new GreenfootImage(nomeImagemMala);
-        imagemCami = new GreenfootImage(nomeImagemCamiMala);
-        
-        imagem.scale(60,60);
-        imagemCami.scale(60,60);
-            
+        if (cooldown > 0)
+        {
+            cooldown--;
+            return;
         }
-    }*/
+        
+        escada escada = (escada) getOneIntersectingObject(escada.class);
+
+        // --- Control de ZIG (tecla "s") ---
+        if (escada != null)
+        {
+            int desplazamientoPiso = escada.getImage().getHeight();
+            // Abajo -> Subir
+            if (getY() > escada.getY())
+            {
+                setLocation(getX(), getY() - desplazamientoPiso);
+                cooldown = 20;
+            }
+            // Arriba -> Bajar
+            else if (getY() < escada.getY())
+            {
+                setLocation(getX(), getY() + desplazamientoPiso -50);
+                cooldown = 20;
+            }
+        }
+    }
     public void recolhaBriefcase(){
         imagem = new GreenfootImage(nomeImagemMala);
         imagemCami = new GreenfootImage(nomeImagemCamiMala);
-        
+        if(velocidad < 0)
+        {
+            imagem.mirrorHorizontally();
+            imagemCami.mirrorHorizontally();
+        }
         imagem.scale(60,60);
         imagemCami.scale(60,60); 
-    
     }
 }
