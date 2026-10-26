@@ -71,7 +71,13 @@ public class pessoa extends Actor
             }
             else if (alvo instanceof inimigo)
             {
-                getWorld().removeObject(alvo);
+                nivel m = (nivel) getWorld();
+                    if (m != null)
+                    {
+                        m.somarPontos(30); // Suma los 30 puntos en tiempo real
+                    }
+            getWorld().removeObject(alvo);
+                
             }
         }
     }

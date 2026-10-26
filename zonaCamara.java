@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class zonaCamara here.
@@ -6,67 +7,50 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class zonaCamara extends Actor
+public class zonaCamara extends zonas
 {
-    private int xPorta ,yPorta;
-    private static boolean abrirPuerta = true;
+
+    private int xPorta, yPorta;
+    private boolean portaAberta = false; // Não estático para evitar bugs ao reiniciar o nível
     private String nomePorta;
-    /**
-     * Act - do whatever the zonaCamara wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
+
+    public zonaCamara(int x, int y, String nomePorta, int xPorta, int yPorta)
     {
-        verificaZona();
-    }
-    public zonaCamara(int x ,int y,String nomePorta ,int xPorta , int yPorta)
-    {
-        GreenfootImage img = new GreenfootImage(x, y);
+        // Envia as medidas e as cores vermelhas para o construtor de 'zonas'
+        super(x, y, new Color(255, 0, 0, 70), new Color(255, 0, 0, 200));
         
-        // Relleno rojo translúcido (R, G, B, Alfa: 0 transparente, 255 opaco)
-        img.setColor(new Color(255, 0, 0, 70));
-        img.fillRect(0, 0, x, y);
-
-        // Borde rojo visible para ver claramente los límites
-        img.setColor(new Color(255, 0, 0, 200));
-        img.drawRect(0, 0, x - 1, y - 1);
-
-        setImage(img);
         this.nomePorta = nomePorta;
         this.xPorta = xPorta;
         this.yPorta = yPorta;
     }
-    private void alertarGuardias(int destinoX, int destinoY)
+    public void aoDetetarProta(protas invasor)
     {
-        // Obtiene todos los policías del mapa
-        java.util.List<inimigo> guardias = getWorld().getObjects(inimigo.class);
-    
-        for (inimigo guardia : guardias)
+        if (!portaAberta)
         {
-            // Les indica a dónde deben acudir
-            guardia.activarAlerta(destinoX, destinoY);
+            abrirPuerta();
+            portaAberta = true;
         }
+        
+        alertarGuardias(getX(), invasor.getY());
     }
+
     private void abrirPuerta()
     {
         nivel m = (nivel) getWorld();
         if (m != null)
         {
-            ((nivel) getWorld()).abrePorta(nomePorta, xPorta, yPorta);
+            m.abrePorta(nomePorta, xPorta, yPorta);
         }
     }
-    public void verificaZona()
-    {
-        protas invasor = (protas) getOneIntersectingObject(protas.class);
 
-        if (invasor != null)
+    private void alertarGuardias(int destinoX, int destinoY)
+    {
+        List<inimigo> guardias = getWorld().getObjects(inimigo.class);
+
+        for (inimigo guardia : guardias)
         {
-            if(abrirPuerta){
-                abrirPuerta();
-                abrirPuerta = false;
-            }
-            
-            alertarGuardias(getX(), invasor.getY());
+            guardia.activarAlerta(destinoX, destinoY);
         }
     }
+
 }

@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=zonas
+comment0.text=\n\ Write\ a\ description\ of\ class\ zonas\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=x\ y\ colorRelleno\ colorBorde
+comment1.target=zonas(int,\ int,\ greenfoot.Color,\ greenfoot.Color)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ verificaZona()
+comment4.params=prota
+comment4.target=void\ aoDetetarProta(protas)
+numComments=5

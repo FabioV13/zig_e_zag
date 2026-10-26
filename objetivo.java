@@ -44,16 +44,29 @@ public class objetivo extends Actor
             contador = 0;
         }
     }
+
     public void recolheObjetivo()
     {
-        protas jogador = (protas) getOneIntersectingObject(protas.class);
+        protas jugador = (protas) getOneIntersectingObject(protas.class);
         
-        if (jogador != null) {
+        if (jugador != null) {
+            nivel mundo = (nivel) getWorld();
+    
             if (this instanceof briefcase) {
-                jogador.recolhaBriefcase();
+                jugador.recolhaBriefcase(); // Si tienes esta función en protas
+                if (mundo != null) {
+                    mundo.somarPontos(100); // Suma 100 puntos fijos por el maletín
+                }
+            } 
+            else if (this instanceof key) {
+                if (mundo != null) {
+                    // Usa las variables de la puerta que le pasaste al constructor
+                    mundo.abrePorta(this.nomePorta, this.xPorta, this.yPorta);
+                    mundo.somarPontos(50);  // Suma 50 puntos fijos por la llave
+                }
             }
-            ((nivel) getWorld()).abrePorta(nomePorta, xPorta, yPorta);
-            getWorld().removeObject(this);
+    
+            getWorld().removeObject(this); // Retira el objeto del mapa
         }
     }
 }
