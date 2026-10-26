@@ -10,5 +10,4 @@ comment3.params=
 comment3.target=void\ flotar()
 comment4.params=
 comment4.target=void\ recolheObjetivo()
-comment4.text=public\ void\ recolheObjetivo()\n\ \ \ \ {\n\ \ \ \ \ \ \ \ protas\ jogador\ \=\ (protas)\ getOneIntersectingObject(protas.class);\n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ if\ (jogador\ \!\=\ null)\ {\n\ \ \ \ \ \ \ \ \ \ \ \ if\ (this\ instanceof\ briefcase)\ {\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ jogador.recolhaBriefcase();\n\ \ \ \ \ \ \ \ \ \ \ \ }\n\ \ \ \ \ \ \ \ \ \ \ \ ((nivel)\ getWorld()).abrePorta(nomePorta,\ xPorta,\ yPorta);\n\ \ \ \ \ \ \ \ \ \ \ \ getWorld().removeObject(this);\n\ \ \ \ \ \ \ \ }\n}
 numComments=5

@@ -4,7 +4,8 @@ import java.util.List;
 public class inimigo extends pessoa
 {
     private GreenfootImage policia, policiaCami, policiaBate;
-    private int xIni, yIni;
+
+    private final int xIni, yIni;
     private int distancia = 500; 
     private int pasoActual = 0;
     private int velocidad = 1, direcao = 1;

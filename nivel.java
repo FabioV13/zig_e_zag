@@ -25,6 +25,7 @@ public class nivel extends World
     public nivel()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+
             super(1250, 650, 1);
         preparaNivel();
     }
@@ -42,6 +43,8 @@ public class nivel extends World
             colocaZonas();
             colocaObjetivo();
             colocaPainel();
+            colocaVida();
+
         } else
         {
         }
@@ -104,6 +107,7 @@ public class nivel extends World
     
         // Zona de salida (verde) en la sala superior izquierda
         addObject(new zonaSaida (75, 150), 80, 140); //porta de saida   
+
     }
     public void abrePorta(String nomeImagem ,int removeX ,int removeY)
     {
@@ -116,6 +120,11 @@ public class nivel extends World
         {
             removeObject(muros.get(0));
         }
+    
+    }
+    public void colocaVida()
+    {
+        addObject(new vidas(),90,40);
     }
     public void colocaPainel()
     {
@@ -141,9 +150,10 @@ public class nivel extends World
         }
     }
 
-        // Breve pausa para que el jugador aprecie los puntos finales antes de cambiar de mundo
-        //Greenfoot.delay(60); 
-
-        //avanzarSeguienteNivel();
+    public void reiniciaNivel()
+    {
+        ((vidas) getObjects(vidas.class).get(0)).perderVida();
+        Greenfoot.setWorld(new nivel());
+    }
 }
 
