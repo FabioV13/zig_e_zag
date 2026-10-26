@@ -18,18 +18,18 @@ public class nivel extends World
      * Constructor for objects of class MyWorld.
      * 
      */
-    public nivel()
+    public nivel(boolean reinicio)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1250, 650, 1);
-        preparaNivel();
+        preparaNivel(reinicio);
     }
     public void colocaObjetivo()
     {
         addObject(new briefcase("nivel1_salida_a.jpeg"), 1120, 150);
         addObject(new key("nivel1_luz_a.jpg",325+getWidth()/2,170), 150, 350);
     }
-    public void preparaNivel()
+    public void preparaNivel(boolean reinicio)
     {
         if(nivel == 1)
         {
@@ -38,6 +38,8 @@ public class nivel extends World
             colocaZonaCamara();
             colocaObjetivo();
             colocaCronometro();
+ 
+            colocaVida();
         } else
         {
         }
@@ -110,10 +112,19 @@ public class nivel extends World
         }
     
     }
+    public void colocaVida()
+    {
+        addObject(new vidas(),90,40);
+    }
     public void colocaCronometro()
     {
         cronometro = new Cronometro();
         // Colocado en la parte superior central (X: centro, Y: 40)
         addObject(cronometro, getWidth() / 2, 40);
+    }
+    public void reiniciaNivel()
+    {
+        ((vidas) getObjects(vidas.class).get(0)).perderVida();
+        Greenfoot.setWorld(new nivel(true));
     }
 }

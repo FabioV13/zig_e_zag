@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=vidas
+comment1.params=
+comment1.target=vidas()
+comment2.params=
+comment2.target=void\ atualizarImagem()
+comment2.text=\r\n\ Dibuja\ el\ texto\ o\ los\ corazones\ en\ pantalla.\r\n
+comment3.params=
+comment3.target=void\ perderVida()
+comment3.text=\r\n\ Descuenta\ una\ vida\ compartida.\r\n\ Si\ quedan\ vidas,\ reinicia\ el\ nivel\ actual.\r\n\ Si\ llega\ a\ 0,\ cambia\ a\ la\ pantalla\ de\ Game\ Over\ y\ resetea\ las\ vidas\ para\ la\ pr\u00F3xima\ partida.\r\n
+comment4.params=
+comment4.target=int\ getVidasRestantes()
+comment5.params=
+comment5.target=void\ reiniciarVidas()
+numComments=6

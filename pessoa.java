@@ -65,13 +65,13 @@ public class pessoa extends Actor
         // 3. Diferencia entre eliminar al enemigo o reiniciar el nivel si atrapa al protagonista
         if (alvo != null && alvo.getWorld() != null)
         {
-            if (alvo instanceof inimigo)
+            if (alvo instanceof protas)
+            {
+                ((nivel)getWorld()).reiniciaNivel();
+            }
+            else if (alvo instanceof inimigo)
             {
                 getWorld().removeObject(alvo);
-            }
-            else if (alvo instanceof protas)
-            {
-                //reiniciaNivel();
             }
         }
     }
