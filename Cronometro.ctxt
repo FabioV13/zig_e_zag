@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Cronometro
+comment1.params=
+comment1.target=Cronometro()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ contarTiempo()
+comment4.params=
+comment4.target=void\ actualizarImagen()
+comment5.params=
+comment5.target=void\ detener()
+comment6.params=
+comment6.target=void\ reanudar()
+comment7.params=
+comment7.target=int\ getTiempoSegundos()
+numComments=8
