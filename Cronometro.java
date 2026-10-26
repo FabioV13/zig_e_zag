@@ -2,6 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class cronometro extends Actor
 {
+
     private int tempoSegundos = 0;
     private int contadorCiclos = 0;
     private boolean activo = true;

@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.target=pontuacao
-comment0.text=\n\ Write\ a\ description\ of\ class\ pontuacao\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=puntosIniciales\ reloj
-comment1.target=pontuacao(int,\ cronometro)
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ pontuacao\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=pontosIniciais
+comment1.target=pontuacao(int)
 comment2.params=
-comment2.target=void\ act()
-comment3.params=
-comment3.target=void\ act()
+comment2.target=pontuacao()
+comment3.params=quantidade
+comment3.target=void\ adicionarPontos(int)
 comment4.params=
 comment4.target=void\ atualizarImagem()
 comment5.params=

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class nivel extends World
 {
-    private int nivel = 1;
+    private static int nivel = 1;
     private String nivel1 = "nivel1.jpg";
     private GreenfootImage fundo;
     
@@ -26,7 +26,8 @@ public class nivel extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
 
-            super(1250, 650, 1);
+        super(1250, 650, 1);
+
         preparaNivel();
     }
     public void colocaObjetivo()
