@@ -17,7 +17,7 @@ public class pessoa extends Actor
      */
     public void act()
     {
-        aplicarGravidade();    
+        aplicarGravidade(); 
     }
     public boolean evitarSobreposicao(int posXPrevia, int posYPrevia)
     {
@@ -67,7 +67,13 @@ public class pessoa extends Actor
         {
             if (alvo instanceof inimigo)
             {
-                getWorld().removeObject(alvo);
+                nivel m = (nivel) getWorld();
+                    if (m != null)
+                    {
+                        m.somarPontos(30); // Suma los 30 puntos en tiempo real
+                    }
+            getWorld().removeObject(alvo);
+                
             }
             else if (alvo instanceof protas)
             {

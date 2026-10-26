@@ -11,12 +11,17 @@ public class objetivo extends Actor
     private GreenfootImage imagem;
     private int contador = 0;
     private int velocidad = 1;
+    private String nomePorta;
+    private int xPorta ,yPorta;
 
-    public objetivo(String nomeImagem, int largura, int altura)
+    public objetivo(String nomeImagem, int largura, int altura,String nomePorta,int xPorta,int yPorta)
     {
         imagem = new GreenfootImage(nomeImagem);
         imagem.scale(largura, altura);
         setImage(imagem);
+        this.nomePorta = nomePorta;
+        this.xPorta = xPorta;
+        this.yPorta = yPorta;
     }
 
     /**
@@ -39,18 +44,7 @@ public class objetivo extends Actor
             contador = 0;
         }
     }
-    /*public void recolheObjetivo(){
-        if (isTouching(protas.class)){
-            removeTouching(objetivo.class);
-            protas objeto = getOneIntersectingObject(briefcas.class);
-            if (this instanceof briefcase){
-               objeto.recolhaBriefcase();
-            }else{
-                
-            }
-        }
-    }*/
-    public void recolheObjetivo()
+    /*public void recolheObjetivo()
     {
         protas jogador = (protas) getOneIntersectingObject(protas.class);
         
@@ -58,7 +52,32 @@ public class objetivo extends Actor
             if (this instanceof briefcase) {
                 jogador.recolhaBriefcase();
             }
+            ((nivel) getWorld()).abrePorta(nomePorta, xPorta, yPorta);
             getWorld().removeObject(this);
         }
+    }*/
+    public void recolheObjetivo()
+    {
+    protas jugador = (protas) getOneIntersectingObject(protas.class);
+    
+    if (jugador != null) {
+        nivel mundo = (nivel) getWorld();
+
+        if (this instanceof briefcase) {
+            jugador.recolhaBriefcase(); // Si tienes esta función en protas
+            if (mundo != null) {
+                mundo.somarPontos(100); // Suma 100 puntos fijos por el maletín
+            }
+        } 
+        else if (this instanceof key) {
+            if (mundo != null) {
+                // Usa las variables de la puerta que le pasaste al constructor
+                mundo.abrePorta(this.nomePorta, this.xPorta, this.yPorta);
+                mundo.somarPontos(50);  // Suma 50 puntos fijos por la llave
+            }
+        }
+
+        getWorld().removeObject(this); // Retira el objeto del mapa
+    }
     }
 }

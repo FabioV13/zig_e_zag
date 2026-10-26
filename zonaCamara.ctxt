@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=zonaCamara
+comment0.text=\n\ Write\ a\ description\ of\ class\ zonaCamara\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=x\ y\ nomePorta\ xPorta\ yPorta
+comment1.target=zonaCamara(int,\ int,\ java.lang.String,\ int,\ int)
+comment2.params=invasor
+comment2.target=void\ aoDetetarProta(protas)
+comment3.params=
+comment3.target=void\ abrirPuerta()
+comment4.params=destinoX\ destinoY
+comment4.target=void\ alertarGuardias(int,\ int)
+numComments=5

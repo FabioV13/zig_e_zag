@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=objetivo
 comment0.text=\n\ Write\ a\ description\ of\ class\ objetivo\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=nomeImagem\ largura\ altura
-comment1.target=objetivo(java.lang.String,\ int,\ int)
+comment1.params=nomeImagem\ largura\ altura\ nomePorta\ xPorta\ yPorta
+comment1.target=objetivo(java.lang.String,\ int,\ int,\ java.lang.String,\ int,\ int)
 comment2.params=
 comment2.target=void\ act()
 comment2.text=\n\ Act\ -\ do\ whatever\ the\ objetivo\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
@@ -10,5 +10,5 @@ comment3.params=
 comment3.target=void\ flotar()
 comment4.params=
 comment4.target=void\ recolheObjetivo()
-comment4.text=public\ void\ recolheObjetivo(){\n\ \ \ \ \ \ \ \ if\ (isTouching(protas.class)){\n\ \ \ \ \ \ \ \ \ \ \ \ removeTouching(objetivo.class);\n\ \ \ \ \ \ \ \ \ \ \ \ protas\ objeto\ \=\ getOneIntersectingObject(briefcas.class);\n\ \ \ \ \ \ \ \ \ \ \ \ if\ (this\ instanceof\ briefcase){\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ objeto.recolhaBriefcase();\n\ \ \ \ \ \ \ \ \ \ \ \ }else{\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ \ \ \ \ }\n\ \ \ \ \ \ \ \ }\n}
+comment4.text=public\ void\ recolheObjetivo()\n\ \ \ \ {\n\ \ \ \ \ \ \ \ protas\ jogador\ \=\ (protas)\ getOneIntersectingObject(protas.class);\n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ if\ (jogador\ \!\=\ null)\ {\n\ \ \ \ \ \ \ \ \ \ \ \ if\ (this\ instanceof\ briefcase)\ {\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ jogador.recolhaBriefcase();\n\ \ \ \ \ \ \ \ \ \ \ \ }\n\ \ \ \ \ \ \ \ \ \ \ \ ((nivel)\ getWorld()).abrePorta(nomePorta,\ xPorta,\ yPorta);\n\ \ \ \ \ \ \ \ \ \ \ \ getWorld().removeObject(this);\n\ \ \ \ \ \ \ \ }\n}
 numComments=5

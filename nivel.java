@@ -13,8 +13,10 @@ public class nivel extends World
     private String nivel1 = "nivel1.jpg";
     private GreenfootImage fundo;
     
+    private int pontosIniciais;
+    
     private cronometro cronometro;
-    private int puntosAcumulados = 0; // Guarda los puntos en silencio durante la partida
+    private pontuacao pontuacao;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -23,13 +25,13 @@ public class nivel extends World
     public nivel()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1250, 650, 1);
+            super(1250, 650, 1);
         preparaNivel();
     }
     public void colocaObjetivo()
     {
-        addObject(new briefcase(), 1120, 150);
-        addObject(new key(), 150, 350);
+        addObject(new briefcase("nivel1_salida_a.jpeg"), 1120, 150);
+        addObject(new key("nivel1_luz_a.jpg",325+getWidth()/2,170), 150, 350);
     }
     public void preparaNivel()
     {
@@ -39,7 +41,7 @@ public class nivel extends World
             preparaCenario(nivel1);
             colocaZonas();
             colocaObjetivo();
-            colocaCronometro();
+            colocaPainel();
         } else
         {
         }
@@ -72,13 +74,16 @@ public class nivel extends World
         addObject(new muro(10,100),-185+getWidth()/2,60); // sala final
         addObject(new muro(10,100),325+getWidth()/2,60); // sala del maletin 
         
+
         addObject(new muro(1600,10),getWidth()/2,425);// segundo piso
         addObject(new muro(10,120),-300+getWidth()/2,370);// sala de la llave (puerta)
         addObject(new muro(10,100),-300+getWidth()/2,270);// sala de la llave (arriba)
         addObject(new muro(10,100),305+getWidth()/2,270);// sala de la electricidad
+
         
         addObject(new muro(1600,10),getWidth()/2,630); //parte de abajo del mapa
         addObject(new muro(10,100),205+getWidth()/2,480); //sala de "biblioteca"
+        addObject(new muro(10,100),-305+getWidth()/2,480);
         
         addObject(new muro(10,850),getWidth()-35,getHeight()/2);// lado del mapa
         addObject(new muro(10,850),35,getHeight()/2);// lado del mapa
@@ -90,22 +95,15 @@ public class nivel extends World
         addObject(new escada(60,250),140+getWidth()/2,getHeight()-150);
         addObject(new escada(60,250),260+getWidth()/2,getHeight()/2-30);
     }
-    /*public void colocaZonaCamara()
-    {
-        addObject(new zonaCamara(370, 200) , getWidth()-230, getHeight()-120);
-        
-        addObject(new zonaCamara(250, 200) , getWidth()-170, 120);
-        addObject(new zonaCamara(500, 200) , getWidth()/2+70, 120);
-    }*/
     public void colocaZonas()
     {
         // Zonas de camaras (rojas)
-        addObject(new zona("camara", 370, 200), getWidth() - 230, getHeight() - 120); //biblioteca
-        addObject(new zona("camara", 250, 200), getWidth() - 170, 120); //sala da mala
-        addObject(new zona("camara", 500, 200), getWidth() / 2 + 70, 120); //sala do meio do terceiro andar
+        addObject(new zonaCamara(370, 200 ,"nivel1_a.jpg",-300+getWidth()/2,370), getWidth() - 230, getHeight() - 120); //biblioteca
+        addObject(new zonaCamara(250, 200 ,"nivel1_a.jpg",-300+getWidth()/2,370), getWidth() - 170, 120); //sala da mala
+        addObject(new zonaCamara(500, 200 ,"nivel1_a.jpg",-300+getWidth()/2,370), getWidth() / 2 + 70, 120); //sala do meio do terceiro andar
     
         // Zona de salida (verde) en la sala superior izquierda
-        addObject(new zona("salida", 75, 150), 80, 140); //porta de saida
+        addObject(new zonaSaida (75, 150), 80, 140); //porta de saida   
     }
     public void abrePorta(String nomeImagem ,int removeX ,int removeY)
     {
@@ -119,34 +117,33 @@ public class nivel extends World
             removeObject(muros.get(0));
         }
     }
-    public void colocaCronometro()
+    public void colocaPainel()
     {
         cronometro = new cronometro();
         // Colocado en la parte superior central (X: centro, Y: 40)
         addObject(cronometro, getWidth() / 2, 40);
         
+        pontuacao = new pontuacao(pontosIniciais);
+        addObject(pontuacao, getWidth() / 2, 70);
     }
     public void somarPontos(int pontos)
     {
-        puntosAcumulados += pontos;
-        if (puntosAcumulados < 0) {
-            puntosAcumulados = 0;
+        if (pontuacao != null) {
+            pontuacao.adicionarPontos(pontos);
         }
     }
-    public void finalizarNivelConExito()
+    public void finalizarNivelComExito()
     {
-        int bonusTiempo = 0;
         if (cronometro != null) {
             cronometro.detener();
-            bonusTiempo = cronometro.calcularBonusTiempo();
-            somarPontos(bonusTiempo);
+            int bonusTempo = cronometro.calcularBonusTempo();
+            somarPontos(bonusTempo); // El total sube en vivo en la barra superior
         }
-
-        // Crea el cartel final mostrando el total (llave + maletin + bonus de tiempo)
-        pontuacao cartel = new pontuacao(puntosAcumulados);
-        addObject(cartel, getWidth() / 2, getHeight() / 2);
-
-        // Opcional: pausar el bucle de Greenfoot al ganar
-        Greenfoot.stop();
     }
+
+        // Breve pausa para que el jugador aprecie los puntos finales antes de cambiar de mundo
+        //Greenfoot.delay(60); 
+
+        //avanzarSeguienteNivel();
 }
+

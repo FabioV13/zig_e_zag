@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class escada extends Actor
 {
-    private int cooldown = 0;
+
     private GreenfootImage escada;
     /**
      * Act - do whatever the escada wants to do. This method is called whenever
@@ -18,54 +18,7 @@ public class escada extends Actor
 
      public void act()
     {
-        sobeEscada();
-    }
-    public void sobeEscada()
-    {
-        if (cooldown > 0)
-        {
-            cooldown--;
-            return;
-        }
-        
-        ZIG zig = (ZIG) getOneIntersectingObject(ZIG.class);
-        ZAG zag = (ZAG) getOneIntersectingObject(ZAG.class);
-        
-        int desplazamientoPiso = getImage().getHeight();
-    
-        // --- Control de ZIG (tecla "s") ---
-        if (zig != null)
-        {
-            // Abajo -> Subir
-            if (zig.getY() > getY() && Greenfoot.isKeyDown("s"))
-            {
-                zig.setLocation(zig.getX(), zig.getY() - desplazamientoPiso);
-                cooldown = 20;
-            }
-            // Arriba -> Bajar
-            else if (zig.getY() < getY() && Greenfoot.isKeyDown("s"))
-            {
-                zig.setLocation(zig.getX(), zig.getY() + desplazamientoPiso -50);
-                cooldown = 20;
-            }
-        }
-    
-        // --- Control de ZAG (tecla "down") ---
-        if (zag != null)
-        {
-            // Abajo -> Subir
-            if (zag.getY() > getY() && Greenfoot.isKeyDown("down"))
-            {
-                zag.setLocation(zag.getX(), zag.getY() - desplazamientoPiso);
-                cooldown = 20;
-            }
-            // Arriba -> Bajar
-            else if (zag.getY() < getY() && Greenfoot.isKeyDown("down"))
-            {
-                zag.setLocation(zag.getX(), zag.getY() + desplazamientoPiso + 50);
-                cooldown = 20;
-            }
-        }
+ 
     }
     public escada(int x,int y)
     {
