@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=pontuacao
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ pontuacao\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=pontosIniciais
+comment1.target=pontuacao(int)
+comment2.params=
+comment2.target=pontuacao()
+comment3.params=quantidade
+comment3.target=void\ adicionarPontos(int)
+comment4.params=
+comment4.target=void\ atualizarImagem()
+comment5.params=
+comment5.target=int\ getPontosTotal()
+numComments=6

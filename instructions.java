@@ -66,7 +66,7 @@ public instructions(){
     ventana.setColor(new Color(160, 255, 200)); //verde 
     ventana.setFont(new Font("Courier New", true, false, 20));
     ventana.drawString("Objetivo:", 580, 100);
-    //490
+    
     ventana.setColor(Color.WHITE);
     ventana.setFont(new Font("Courier New", false, false, 20));
     ventana.drawString("• Encontrar a mala com as", 580, 130);
