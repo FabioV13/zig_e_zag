@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Cronometro extends Actor
 {
-    private int tiempoSegundos = 0;
+    private static int tiempoSegundos = 0;
     private int contadorCiclos = 0;
     private boolean activo = true;
 

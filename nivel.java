@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class nivel extends World
 {
-    private int nivel = 1;
+    private static int nivel = 1;
     private String nivel1 = "nivel1.jpg";
     private GreenfootImage fundo;
     
@@ -18,18 +18,18 @@ public class nivel extends World
      * Constructor for objects of class MyWorld.
      * 
      */
-    public nivel(boolean reinicio)
+    public nivel()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1250, 650, 1);
-        preparaNivel(reinicio);
+        preparaNivel();
     }
     public void colocaObjetivo()
     {
         addObject(new briefcase("nivel1_salida_a.jpeg"), 1120, 150);
         addObject(new key("nivel1_luz_a.jpg",325+getWidth()/2,170), 150, 350);
     }
-    public void preparaNivel(boolean reinicio)
+    public void preparaNivel()
     {
         if(nivel == 1)
         {
@@ -125,6 +125,6 @@ public class nivel extends World
     public void reiniciaNivel()
     {
         ((vidas) getObjects(vidas.class).get(0)).perderVida();
-        Greenfoot.setWorld(new nivel(true));
+        Greenfoot.setWorld(new nivel());
     }
 }
