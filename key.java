@@ -13,7 +13,7 @@ public class key extends objetivo
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
 
-    public key(){
-        super("chave.png", 25, 25);
+    public key(String nomePorta,int x ,int y){
+        super("chave.png", 25, 25,nomePorta,x,y);
     }
 }
